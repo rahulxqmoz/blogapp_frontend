@@ -16,6 +16,10 @@ import {
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPosts, createPost, editPost, deletePost } from "../redux/postSlice";
+
+const MAX_CONTENT_LENGTH = 5000; 
+const MAX_IMAGE_SIZE_MB = 5; 
+
 const useHideUnimportantErrors = () => {
   useEffect(() => {
     function hideError(e) {
@@ -82,8 +86,37 @@ const Profile = () => {
     setImagePreview(null);
   };
 
+
+  const validateInputs = () => {
+    const newErrors = { title: "", content: "", image: "" };
+
+    // Title validation
+    if (!postData.title.trim()) newErrors.title = "Title is required.";
+    if (postData.title.trim().length > 250) newErrors.title = "Title must be under 250 characters.";
+
+    // Content validation
+    if (!postData.content.trim()) newErrors.content = "Content is required.";
+    if (postData.content.trim().length > MAX_CONTENT_LENGTH) {
+      newErrors.content = `Content must be under ${MAX_CONTENT_LENGTH} characters.`;
+    }
+
+    // Image validation
+    if (image) {
+      const validImageTypes = ["image/jpeg", "image/png", "image/jpg"];
+      if (!validImageTypes.includes(image.type)) {
+        newErrors.image = "Only JPG, JPEG, and PNG files are allowed.";
+      }
+      if (image.size > MAX_IMAGE_SIZE_MB * 1024 * 1024) {
+        newErrors.image = `Image size must be under ${MAX_IMAGE_SIZE_MB} MB.`;
+      }
+    }
+
+    setErrors(newErrors);
+    return !Object.values(newErrors).some((error) => error);
+  };
   // Handle create post
   const handleCreatePost = async () => {
+    if (!validateInputs()) return;
     const formData = new FormData();
     formData.append("title", postData.title);
     formData.append("content", postData.content);
@@ -95,6 +128,7 @@ const Profile = () => {
 
   // Handle update post
   const handleUpdatePost = async () => {
+    if (!validateInputs()) return;
     const formData = new FormData();
     formData.append("title", postData.title);
     formData.append("content", postData.content);
@@ -108,6 +142,7 @@ const Profile = () => {
   const handleDelete = async (blog) => {
     if (window.confirm("Are you sure you want to delete this blog?")) {
       await dispatch(deletePost(blog.id));
+      dispatch(fetchPosts(user.id));
     }
   };
 
@@ -208,6 +243,8 @@ const Profile = () => {
             fullWidth
             value={postData.title}
             onChange={(e) => setPostData({ ...postData, title: e.target.value })}
+            error={Boolean(errors.title)}
+            helperText={errors.title}
           />
           <TextField
             margin="dense"
@@ -217,6 +254,8 @@ const Profile = () => {
             minRows={4}
             value={postData.content}
             onChange={(e) => setPostData({ ...postData, content: e.target.value })}
+            error={Boolean(errors.title)}
+            helperText={errors.title}
           />
           <input
             type="file"
@@ -224,6 +263,7 @@ const Profile = () => {
             onChange={handleImageChange}
             style={{ marginTop: 16 }}
           />
+           {errors.image && <Typography color="error">{errors.image}</Typography>}
           {imagePreview && (
             <img
               src={imagePreview}
