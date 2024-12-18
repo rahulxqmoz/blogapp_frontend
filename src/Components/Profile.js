@@ -256,8 +256,8 @@ const Profile = () => {
             minRows={4}
             value={postData.content}
             onChange={(e) => setPostData({ ...postData, content: e.target.value })}
-            error={Boolean(errors.title)}
-            helperText={errors.title}
+            error={Boolean(errors.content)}
+            helperText={errors.content}
           />
           <input
             type="file"
