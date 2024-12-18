@@ -55,6 +55,7 @@ const Profile = () => {
   const [imagePreview, setImagePreview] = useState(null);
   const [viewselectedBlog, setViewselectedBlog] = useState(null);
   const [errors, setErrors] = useState({ title: "", content: "", image: "" });
+  
   useHideUnimportantErrors();
   // Fetch posts on user login
   useEffect(() => {
