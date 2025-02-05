@@ -1,6 +1,6 @@
 # Blog Platform Frontend
 
-This is the frontend for the Blog Platform application, built with React for a seamless and responsive user experience.
+Blog App is a minimal yet powerful blogging platform that enables users to create, manage, and engage with blog posts. It ensures secure authentication and seamless frontend integration.This is the frontend for the Blog Platform application, built with React for a seamless and responsive user experience.
 
 ## Features
 
