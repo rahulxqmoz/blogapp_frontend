@@ -53,6 +53,10 @@ Ensure you have the following installed:
 - **Register**: Enables new users to sign up.
 - **Create/Edit Post**: Forms for authenticated users to create or edit blog posts.
 
+## Backend Setup
+
+To fully utilize the application, ensure the backend is running locally. Follow the setup guide in the [WeatherApp Backend Repository]((https://github.com/rahulxqmoz/blog_app).
+
 ## Contributing
 
 Contributions are welcome! Follow these steps:
