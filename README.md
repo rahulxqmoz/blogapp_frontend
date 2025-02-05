@@ -55,7 +55,7 @@ Ensure you have the following installed:
 
 ## Backend Setup
 
-To fully utilize the application, ensure the backend is running locally. Follow the setup guide in the [WeatherApp Backend Repository]((https://github.com/rahulxqmoz/blog_app).
+To fully utilize the application, ensure the backend is running locally. Follow the setup guide in the [WeatherApp Backend Repository](https://github.com/rahulxqmoz/blog_app).
 
 ## Contributing
 
